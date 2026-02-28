@@ -30,7 +30,7 @@ public class PesquisaIdadeFor {
   }
 
   public static double calcularMedia(int qtd, int somatorio) {
-    return somatorio / qtd;
+    return (double) somatorio / (double) qtd;
   }
 
   // f(x) = x²
