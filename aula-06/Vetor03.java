@@ -1,0 +1,97 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class Vetor03 {
+    public static final int TAM = 10;
+    public static final int MIN = 1;
+    public static final int MAX = 50;
+    public static Random random = new Random();
+    public static Scanner input = new Scanner(System.in);
+    
+    public static void main(String[] args) {
+        int[] numeros = new int[TAM];
+        preencherAleatorioOrdenadoSemRepeticao(numeros);
+        double media = calcularMedia(numeros);
+        System.out.printf("A média dos números inteiros deste vetor é %.2f\n", media);
+        System.out.print("Vetor: ");
+        imprimir(numeros);
+        buscarNumeros(numeros);
+    }
+
+    public static void preencherAleatorio(int[] v) {
+        for (int i = 0; i < v.length; i += 1) {
+            v[i] = random.nextInt(MAX - MIN + 1) + MIN;
+        }
+    }
+
+    public static double calcularMedia(int[] v) {
+        int soma = 0;
+        for (int i = 0; i < v.length; i += 1) {
+            soma += v[i];
+        }
+        return (double) soma / (double) v.length;
+    }
+
+    public static void imprimir(int[] v) {
+        System.out.print("{");
+        if (v.length >= 1) {
+            System.out.print(" " + v[0]);
+            for (int i = 1; i < v.length; i += 1) {
+                System.out.print(", " + v[i]);
+            }
+        }
+        System.out.print(" }");
+    }
+
+    public static int buscaSequencial(int[] v, int n, int x) {
+        for (int i = 0; i < n; i += 1) {
+            if (x == v[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static void buscarNumeros(int[] v) {
+        int num;
+        System.out.print("\n\nDigite um número a ser buscado: ");
+        num = input.nextInt();
+        while (num >= MIN && num <= MAX) {
+            int pos = buscaSequencial(v, v.length, num);
+            if (pos != -1) {
+                System.out.printf("Número %d está na posição %d\n", num, pos + 1);
+            } else {
+                System.out.printf("Número %d não está no vetor\n", num);
+            }
+            System.out.print("Vetor: ");
+            imprimir(v);
+            System.out.print("\n\nDigite um número a ser buscado (num inválido para finalizar): ");
+            num = input.nextInt();
+        }
+    }
+
+    public static void preencherAleatorioOrdenadoSemRepeticao(int[] v) {
+        int num;
+        for (int i = 0; i < v.length; i += 1) {
+            do {
+                num = random.nextInt(MAX - MIN + 1) + MIN;
+            } while (buscaSequencial(v, i, num) != -1);
+            inserirOrdenado(v, i, num);
+        }
+    }
+
+    public static void preencherAleatorioOrdenado(int[] v) {
+        for (int i = 0; i < v.length; i += 1) {
+            inserirOrdenado(v, i, random.nextInt(MAX - MIN + 1) + MIN);
+        }
+    }
+
+    public static void inserirOrdenado(int[] v, int n, int x) {
+        int pos = n;
+        while (pos >= 1 && x < v[pos - 1]) {
+            v[pos] = v[pos - 1];
+            pos -= 1;
+        }
+        v[pos] = x;
+    }
+}
