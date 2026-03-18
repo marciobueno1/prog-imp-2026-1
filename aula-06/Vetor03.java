@@ -2,7 +2,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Vetor03 {
-    public static final int TAM = 10;
+    public static final int TAM = 20;
     public static final int MIN = 1;
     public static final int MAX = 50;
     public static Random random = new Random();
@@ -52,12 +52,27 @@ public class Vetor03 {
         return -1;
     }
 
+    public static int buscaBinaria(int[] v, int n, int x) {
+        int inicio = 0, fim = n -1, meio;
+        while (inicio <= fim) {
+            meio = (inicio + fim) / 2;
+            if (x == v[meio]) {
+                return meio;
+            } else if (x < v[meio]) {
+                fim = meio - 1;
+            } else {
+                inicio = meio + 1;
+            }
+        }
+        return -1;
+    }
+
     public static void buscarNumeros(int[] v) {
         int num;
         System.out.print("\n\nDigite um número a ser buscado: ");
         num = input.nextInt();
         while (num >= MIN && num <= MAX) {
-            int pos = buscaSequencial(v, v.length, num);
+            int pos = buscaBinaria(v, v.length, num);
             if (pos != -1) {
                 System.out.printf("Número %d está na posição %d\n", num, pos + 1);
             } else {
@@ -75,6 +90,9 @@ public class Vetor03 {
         for (int i = 0; i < v.length; i += 1) {
             do {
                 num = random.nextInt(MAX - MIN + 1) + MIN;
+                if (buscaSequencial(v, i, num) != -1) {
+                    System.out.println("número repetido! " + num);
+                }
             } while (buscaSequencial(v, i, num) != -1);
             inserirOrdenado(v, i, num);
         }
