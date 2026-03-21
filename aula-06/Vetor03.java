@@ -2,17 +2,22 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Vetor03 {
-    public static final int TAM = 20;
+    public static final int TAM = 100;
     public static final int MIN = 1;
-    public static final int MAX = 50;
+    public static final int MAX = 10;
     public static Random random = new Random();
     public static Scanner input = new Scanner(System.in);
     
     public static void main(String[] args) {
         int[] numeros = new int[TAM];
-        preencherAleatorioOrdenadoSemRepeticao(numeros);
+        preencherAleatorio(numeros);
+        System.out.print("\n\nVetor: ");
+        imprimir(numeros);
+        insertionSort(numeros, numeros.length);
+        System.out.print("\n\nVetor: ");
+        imprimir(numeros);
         double media = calcularMedia(numeros);
-        System.out.printf("A média dos números inteiros deste vetor é %.2f\n", media);
+        System.out.printf("\n\nA média dos números inteiros deste vetor é %.2f\n", media);
         System.out.print("Vetor: ");
         imprimir(numeros);
         buscarNumeros(numeros);
@@ -111,5 +116,17 @@ public class Vetor03 {
             pos -= 1;
         }
         v[pos] = x;
+    }
+
+    public static void insertionSort(int[] v, int n) {
+        for (int i = 1; i <= n - 1; i += 1) {
+            int chave = v[i];
+            int j = i - 1;
+            while (j >= 0 && v[j] > chave) {
+                v[j + 1] = v[j];
+                j -= 1;
+            }
+            v[j + 1] = chave;
+        }
     }
 }
