@@ -13,7 +13,7 @@ public class Vetor03 {
         preencherAleatorio(numeros);
         System.out.print("\n\nVetor: ");
         imprimir(numeros);
-        insertionSort(numeros, numeros.length);
+        bubbleSort(numeros, numeros.length);
         System.out.print("\n\nVetor: ");
         imprimir(numeros);
         double media = calcularMedia(numeros);
@@ -127,6 +127,39 @@ public class Vetor03 {
                 j -= 1;
             }
             v[j + 1] = chave;
+        }
+    }
+
+    public static void selectionSort(int[] v, int n) {
+        for (int i = 0; i < n - 1; i += 1) {
+            int menor = i;
+            for (int j = i + 1; j < n; j += 1) {
+                if (v[j] < v[menor]) {
+                    menor = j;
+                }
+            }
+            int aux = v[i];
+            v[i] = v[menor];
+            v[menor] = aux;
+        }
+    }
+
+    public static void bubbleSort(int[] v, int n) {
+        int aux;
+        int pos = 0, fim = n - 2;
+        boolean troca = true;
+        while (troca) {
+            troca = false;
+            for (int i = 0; i <= fim; i += 1) {
+                if (v[i] > v[i + 1]) {
+                    aux = v[i];
+                    v[i] = v[i + 1];
+                    v[i + 1] = aux;
+                    troca = true;
+                    pos = i;
+                }
+            }
+            fim = pos - 1;
         }
     }
 }
